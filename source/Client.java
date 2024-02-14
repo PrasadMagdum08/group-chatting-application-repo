@@ -35,14 +35,10 @@ public class Client1 implements ActionListener{
         sideBarPanel.setBackground(new Color(255, 255, 255, 255));
         sideBarPanel.setLayout(new BorderLayout());
         frame.add(sideBarPanel);
-
-        // ImageIcon image = new ImageIcon("img\\OIP.jpeg");
+    
         chatPanel = new JPanel();
         chatPanel.setBounds(272, 52, 1060, 610);
         chatPanel.setBackground(new Color(255,255,255,255));
-        // chatPanel.setLayout(new BorderLayout());
-        // JLabel label = new JLabel(image);
-        // chatPanel.add(label);
         frame.add(chatPanel);
     
         text = new JTextField();
@@ -65,11 +61,8 @@ public class Client1 implements ActionListener{
         if(e.getSource() == Send){
             String print = text.getText();
 
-            // JLabel output = new JLabel(print);
-
             JPanel panel2 = formatLabel(print);
-            // panel2.add(output);
-
+            
             chatPanel.setLayout(new BorderLayout());
             
             JPanel right = new JPanel(new BorderLayout());
@@ -102,10 +95,6 @@ public class Client1 implements ActionListener{
 
     }
 
-    public static void main(String args[]) throws IOException{
-        new Client1();
-
-        }
 
     }
 
