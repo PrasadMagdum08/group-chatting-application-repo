@@ -38,7 +38,7 @@ public class Client1 implements ActionListener{
     
         chatPanel = new JPanel();
         chatPanel.setBounds(272, 52, 1060, 610);
-        chatPanel.setBackground(new Color(255,255,255,255));
+        // chatPanel.setBackground(new Color(255,255,255,255));
         frame.add(chatPanel);
     
         text = new JTextField();
