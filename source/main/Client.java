@@ -23,7 +23,7 @@ public class Client extends JFrame implements Runnable {
     String name = "Pooja";
     
     @SuppressWarnings("resource")
-    Client() {
+    public Client() {
         
         this.setLayout(null);
 
