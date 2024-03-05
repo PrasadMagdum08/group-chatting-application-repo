@@ -1,2 +1,8 @@
 # group-chatting-application-repo
-building an group chatting desktop application 
+
+Go to Server -> Server.java -> Run java
+
+Go to main -> Client.java -> Run java 
+
+
+
