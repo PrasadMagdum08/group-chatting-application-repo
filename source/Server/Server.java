@@ -18,6 +18,7 @@ public class Server implements Runnable {
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void run() {
         try {
