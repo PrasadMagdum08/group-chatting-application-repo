@@ -1,11 +1,13 @@
-package Components;
+package Compoenets;
 
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.net.*;
 import java.util.*;
+import Compoenets.myFile;
 
 public class fileChooser extends JFrame{
     
@@ -19,13 +21,12 @@ public class fileChooser extends JFrame{
         this.setUndecorated(true);
         this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
         
-        JLabel fileName = new JLabel("Choose a file");
-        fileName.setFont(new Font(null, Font.BOLD, 20));
-        fileName.setBorder(new EmptyBorder(50, 0, 0, 0));
-        fileName.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
         JPanel button = new JPanel();
         button.setBorder(new EmptyBorder(75, 0, 10, 0));
+        
+        JLabel fileName = new JLabel("Choose a file name");
+        fileName.setBorder(new EmptyBorder(10, 0, 0, 0));
+        fileName.setFont(new Font(null, Font.BOLD, 20));
         
         JButton sendFile = new JButton("Send File");
         sendFile.setPreferredSize(new Dimension(150, 75));
@@ -67,9 +68,9 @@ public class fileChooser extends JFrame{
                 else {
                     try {
                         FileInputStream fileInputStream = new FileInputStream(fileToSend[0].getAbsolutePath());
-//                        Socket socket = new Socket("localhost", 1234);
+                        Socket socket = new Socket("localhost", 2003);
                         
-//                        DataOutputStream dout = new DataOutputStream(socket.getOutputStream());
+                        DataOutputStream dout = new DataOutputStream(socket.getOutputStream());
                         
                         String filename = fileToSend[0].getName();
                         byte[] fileNameBytes = filename.getBytes();
@@ -77,12 +78,12 @@ public class fileChooser extends JFrame{
                         byte[] fileContentBytes = new byte[(int) fileToSend[0].length()];
                         fileInputStream.read(fileContentBytes);
                         
-//                        dout.writeInt(fileNameBytes.length);
-//                        dout.write(fileNameBytes);
+                        dout.writeInt(fileNameBytes.length);
+                        dout.write(fileNameBytes);
                         
-//                        dout.writeInt(fileContentBytes.length);
-//                        dout.write(fileContentBytes);
-                        
+                        dout.writeInt(fileContentBytes.length);
+                        dout.write(fileContentBytes);
+//                        
                         
                     } catch (Exception ex) {
                         ex.printStackTrace();
@@ -91,59 +92,13 @@ public class fileChooser extends JFrame{
             }
         });
         
-        
         this.add(fileName);
         this.add(button);
         this.setVisible(true);
-        
     }
     
 }
 
-class myFile {
-    
-    private int id;
-    private String name;
-    private byte[] data;
-    private String fileExtension;
-    
-    public myFile(int id, String name, byte[] data, String fileExtension) {
-        this.id=id;
-        this.name=name;
-        this.data=data;
-        this.fileExtension=fileExtension;
-    }
-    
-    public void setId(int id){
-        this.id=id;
-    }
-    
-    public void setName(String name){
-        this.name=name;
-    }
-    
-    public void setData(byte[] data){
-        this.data=data;
-    }
-    public void setFileExtension(String fileExtension){
-        this.fileExtension=fileExtension;
-    }
-    
-    public int getId() {
-        return id;
-    }
-}
 
-class Server extends JFrame{
-    
-    static ArrayList<myFile> myfile = new ArrayList<>();
-    
-    public Server() {
-        int fieldID = 0;
-        
-//        JFrame f = new JFrame("Server");
-        this.setSize(400, 400);
-        this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
-}
+
+

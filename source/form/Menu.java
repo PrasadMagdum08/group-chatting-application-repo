@@ -1,22 +1,45 @@
-package form;
+package Compoenets;
 
 import javax.swing.*;
 import java.awt.*;
-import Components.menuButton;
+import java.awt.event.*;
 
-public class Menu extends JLayeredPane {
-    public Menu() {
-        
-        JLayeredPane menuPanel = new JLayeredPane();
-        menuPanel.setBounds(0, 0, 200, 60);
-        menuPanel.setBackground(new Color(6, 90, 179));
-        menuPanel.setOpaque(true);
-        this.add(menuPanel);
-        
-        menuPanel.add(new menuButton());
-        
-        this.setBounds(5, 5, 200, 705);
-        this.setBackground(new Color(249, 249, 249));
-        this.setOpaque(true);
+public class menuButton extends JButton implements MouseListener {
+    public menuButton() {
+    
+        this.setBounds(5, 5, 60, 50);
+        this.setBorder(null);
+        this.setBackground(Color.white);
+        this.addMouseListener(this);
     }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+    
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+         JLayeredPane menuList = new JLayeredPane();
+         menuList.setBounds(0, 0, 100, 150);
+         menuList.setBackground(new Color(0xCCCCCC));
+         menuList.setOpaque(true);
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
+    
+    
 }

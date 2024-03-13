@@ -1,33 +1,31 @@
 package Client;
 
-import form.*;
+import form.Chat;
+import form.Menu;
 import java.awt.Color;
 import javax.swing.*;
 
-public class Client extends JFrame {
-
+public class Client {
     
-    @SuppressWarnings("resource")
-    Client() {
-        
-        this.setLayout(null);
-        
-        
-        this.add(new Menu());
+    static private form.Chat one;
+    static JFrame frame = new JFrame();
 
-        this.add(new Chat());
-        this.setSize(1360, 768);
-        this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.getContentPane().setBackground(new Color(0xCCCCC));
-        this.setTitle("Chat app");
-        this.setVisible(true);
-       
+    public Client(String userID) {
+        one = new Chat(userID);
+        Thread thread = new Thread(one);
+        thread.start();
+
+        frame.setLayout(null);
+
+        frame.add(new Menu());
+
+        frame.add(one);
+        frame.setSize(1360, 768);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().setBackground(new Color(0xCCCCCC));
+        frame.setTitle("Chat app");
+        frame.setVisible(true);
     }
-    
-    public static void main(String[] args) {
-        new Client();
-        Chat chat = new Chat();
-        chat.transfer();
-    }
+
 }

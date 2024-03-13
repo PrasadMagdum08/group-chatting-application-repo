@@ -1,5 +1,6 @@
 package form;
 
+import Compoenets.fileChooser;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -7,35 +8,39 @@ import java.io.*;
 import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import javax.swing.border.EmptyBorder;
+import javax.swing.border.*;
 
 
 
 public class Chat extends JLayeredPane implements ActionListener, Runnable{
     
-    
+    Socket socket;
     JTextField text;
     JPanel a1;
     static Box vertical = Box.createVerticalBox();    
     BufferedReader reader;
     BufferedWriter writer;
-    String name = "Kaleen Bhaiya";
-    JButton fileChooser;
+    String userID;
+    private JButton fileChooser;
+    private JButton send;
     
     
-    @SuppressWarnings("resource")
-    public Chat() {
+    
+    public Chat(String userID) {
+        this.userID = userID;
 
-
-        fileChooser = new JButton();
+        ImageIcon filechooser = new ImageIcon("icons\\Send.png");
+        
+        fileChooser = new JButton(filechooser);
         fileChooser.setBounds(25, 660, 50, 40);
         fileChooser.setBackground(Color.white);
+        fileChooser.setOpaque(true);
+        fileChooser.setFocusable(false);
         fileChooser.addActionListener(this);
         fileChooser.setBorder(null);
+        
         this.add(fileChooser);
         
-        
-
         
         JPanel p1 = new JPanel();
         p1.setBackground(new Color(6,90,179));
@@ -43,13 +48,13 @@ public class Chat extends JLayeredPane implements ActionListener, Runnable{
         p1.setLayout(null);
         this.add(p1);
         
-        JLabel name = new JLabel("Mirzapur");
+        JLabel name = new JLabel("DYPCET");
         name.setBounds(110, 15, 100, 18);
         name.setForeground(Color.WHITE);
         name.setFont(new Font("SAN_SERIF", Font.BOLD, 18));
         p1.add(name);
         
-        JLabel status = new JLabel("Kaleen, Guddu, Bablu, Sweety, IG Dubey, Shukla");
+        JLabel status = new JLabel("Shailesh, Kunal, Samarjeet, Prasad");
         status.setBounds(110, 35, 160, 18);
         status.setForeground(Color.WHITE);
         status.setFont(new Font("SAN_SERIF", Font.BOLD, 14));
@@ -62,19 +67,22 @@ public class Chat extends JLayeredPane implements ActionListener, Runnable{
         this.add(outerLayerChat);
         
         a1 = new JPanel();
-        a1.setBounds(20, 70, 1110, 585);
+        a1.setBounds(20, 5, 1110, 585);
         a1.setBackground(Color.WHITE);
         outerLayerChat.add(a1);   
         
         text = new JTextField();
         text.setBounds(100, 660, 900, 40);
-        text.setFont(new Font("SAN_SERIF", Font.PLAIN, 16));
+        text.setFont(new Font("roboto", Font.BOLD, 16));
         text.setBorder(null);
         this.add(text);
         
-        JButton send = new JButton("Send");
+        ImageIcon sendButton = new ImageIcon(ClassLoader.getSystemResource("icons\\Send.png"));
+        Image i1 = sendButton.getImage().getScaledInstance(35, 35, Image.SCALE_DEFAULT);
+        ImageIcon i2 = new ImageIcon(i1);
+        send = new JButton(i2);
         send.setBounds(1050, 660, 50, 40);
-        send.setBackground(new Color(7, 94, 84));
+        send.setBackground(new Color(229, 229, 229));
         send.setForeground(Color.WHITE);
         send.addActionListener(this);
         send.setFocusable(false);
@@ -87,19 +95,21 @@ public class Chat extends JLayeredPane implements ActionListener, Runnable{
         this.setBackground(new Color(229, 229, 229));
         this.setOpaque(true);
         
-        try {
-            Socket socket = new Socket("localhost", 2003);
-            writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-            reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            socket = new Socket("localhost", 9999);
+//            writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+//            reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
     
     @Override
     public void actionPerformed(ActionEvent ae) {
+        if(ae.getSource() == send) {
+
         try {
-            String out = "<html><p>" + name + "</p><p>" + text.getText() + "</p></html>";
+            String out = "<html><p>" + userID + "</p><p>" + text.getText() + "</p></html>";
 
             JPanel p2 = formatLabel(out);
 
@@ -113,40 +123,40 @@ public class Chat extends JLayeredPane implements ActionListener, Runnable{
 
             a1.add(vertical, BorderLayout.PAGE_START);
 
-            try {
-                writer.write(out);
-                writer.write("\r\n");
-                writer.flush();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                writer.write(out);
+//                writer.write("\r\n");
+//                writer.flush();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
 
             text.setText("");
 
             this.repaint();
             this.invalidate();
-            this.validate();   
+            this.validate();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+        }
+
         if(ae.getSource() == fileChooser){
-            @SuppressWarnings("unused")
-            Components.fileChooser fc = new Components.fileChooser();
+            fileChooser fc = new fileChooser();
         }
     }
     
     public static JPanel formatLabel(String out) {
         JPanel panel = new JPanel();
         panel.setBackground(Color.WHITE);
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        
+        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+
         JLabel output = new JLabel(out);
-        output.setFont(new Font("Tahoma", Font.BOLD, 12));
+        output.setFont(new Font("roboto", Font.BOLD, 14));
         output.setForeground(Color.white);
         output.setBackground(new Color(6,90,179));
         output.setOpaque(true);
-        output.setBorder(new EmptyBorder(10, 10, 10, 20));
+        output.setBorder(new EmptyBorder(5, 5, 5, 20));
         
         panel.add(output);
         
@@ -161,14 +171,13 @@ public class Chat extends JLayeredPane implements ActionListener, Runnable{
         return panel;
     }
     
-    @Override
     public void run() {
 
         try {
             String msg = "";
             while(true) {
                 msg = reader.readLine();
-                if (msg.contains(name)) {
+                if (msg.contains(userID)) {
                     continue;
                 }
                 
@@ -190,19 +199,6 @@ public class Chat extends JLayeredPane implements ActionListener, Runnable{
         }
         
     }
-    
-    public void transfer() {
-        try {
-        
-            Chat one = new Chat();
-            Thread t1 = new Thread((Runnable) one);
-            t1.start();
-        
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
-    }
-   
-    
 }
+
+
