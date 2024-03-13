@@ -1,4 +1,4 @@
-package Compoenets;
+package Components;
 
 import javax.swing.*;
 import javax.swing.border.*;
@@ -7,7 +7,7 @@ import java.awt.event.*;
 import java.io.*;
 import java.net.*;
 import java.util.*;
-import Compoenets.myFile;
+// import Components.myFile;
 
 public class fileChooser extends JFrame{
     

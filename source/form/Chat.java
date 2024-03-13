@@ -1,6 +1,6 @@
 package form;
 
-import Compoenets.fileChooser;
+import Components.fileChooser;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;

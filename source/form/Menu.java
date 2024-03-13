@@ -1,11 +1,11 @@
-package Compoenets;
+package form;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class menuButton extends JButton implements MouseListener {
-    public menuButton() {
+public class Menu extends JButton implements MouseListener {
+    public Menu() {
     
         this.setBounds(5, 5, 60, 50);
         this.setBorder(null);
